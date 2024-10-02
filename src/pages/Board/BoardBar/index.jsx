@@ -1,17 +1,104 @@
-import { Box } from '@mui/material';
+import { Avatar, AvatarGroup, Box, Button, Tooltip } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import VpnLockIcon from '@mui/icons-material/VpnLock';
+import AddToDriveIcon from '@mui/icons-material/AddToDrive';
+import BoltIcon from '@mui/icons-material/Bolt';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
+const MENU_STYLE = {
+  color: 'primary.main',
+  bgcolor: 'white',
+  border: 'none',
+  paddingX: '5px',
+  borderRadius: '4px',
+  '& .MuiSvgIcon-root': {
+    color: 'primary.main',
+  },
+  '&:hover': {
+    bgcolor: 'primary.50',
+  },
+};
 
 function BoardBar() {
   return (
     <Box
+      px={2}
       sx={{
-        backgroundColor: 'primary.dark',
         height: (theme) => theme.trelloCustom.boardBarHeight,
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
+        overflowX: 'auto',
+        gap: 2,
+        borderTop: '1px solid #00bfa5',
       }}
     >
-      Board bar
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Chip
+          sx={MENU_STYLE}
+          icon={<DashboardIcon />}
+          onClick={() => alert('test')}
+          label="Nav Trello Web App"
+        />
+        <Chip
+          sx={MENU_STYLE}
+          icon={<VpnLockIcon />}
+          onClick={() => alert('test')}
+          label="Public/Private WorkSpace"
+        />
+        <Chip
+          sx={MENU_STYLE}
+          icon={<AddToDriveIcon />}
+          onClick={() => alert('test')}
+          label="Add to Google Driver"
+        />
+        <Chip
+          sx={MENU_STYLE}
+          icon={<BoltIcon />}
+          onClick={() => alert('test')}
+          label="Automation"
+        />
+        <Chip
+          sx={MENU_STYLE}
+          icon={<FilterListIcon />}
+          onClick={() => alert('test')}
+          label="Filters"
+        />
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Button variant="outlined" startIcon={<PersonAddIcon />}>
+          Invite
+        </Button>
+        <AvatarGroup
+          max={4}
+          sx={{
+            '& .MuiAvatar-root': {
+              width: '35px',
+              height: '35px',
+              fontSize: '16px',
+            },
+          }}
+        >
+          <Tooltip title="nav">
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Tooltip>
+          <Tooltip title="nav">
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Tooltip>
+          <Tooltip title="nav">
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Tooltip>
+          <Tooltip title="nav">
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Tooltip>
+          <Tooltip title="nav">
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Tooltip>
+        </AvatarGroup>
+      </Box>
     </Box>
   );
 }
