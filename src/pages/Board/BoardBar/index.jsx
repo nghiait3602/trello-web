@@ -8,8 +8,8 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const MENU_STYLE = {
-  color: 'primary.main',
-  bgcolor: 'white',
+  color: 'white',
+  bgcolor: 'transparent',
   border: 'none',
   paddingX: '5px',
   borderRadius: '4px',
@@ -34,6 +34,8 @@ function BoardBar() {
         overflowX: 'auto',
         gap: 2,
         borderTop: '1px solid #00bfa5',
+        bgcolor:(theme) => theme.palette.mode === 'dark' ? '#34495e' : '#1976d2',
+        borderBottom:'1px solid white'
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -69,33 +71,42 @@ function BoardBar() {
         />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button variant="outlined" startIcon={<PersonAddIcon />}>
+        <Button variant="outlined" startIcon={<PersonAddIcon />}
+         sx={{color:'white',
+          borderColor:'white'
+          ,'&;hover':{
+           borderColor:'white' 
+          }
+         }}
+         >
           Invite
         </Button>
         <AvatarGroup
           max={4}
           sx={{
+            gap:'10px',
             '& .MuiAvatar-root': {
               width: '35px',
               height: '35px',
               fontSize: '16px',
+              border:'none'
             },
           }}
         >
           <Tooltip title="nav">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg" />
           </Tooltip>
           <Tooltip title="nav">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg" />
           </Tooltip>
           <Tooltip title="nav">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg" />
           </Tooltip>
           <Tooltip title="nav">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg" />
           </Tooltip>
           <Tooltip title="nav">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg" />
           </Tooltip>
         </AvatarGroup>
       </Box>
