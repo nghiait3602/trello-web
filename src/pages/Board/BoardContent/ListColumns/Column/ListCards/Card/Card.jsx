@@ -9,29 +9,15 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-function TrelloCard({ temporaryHideMedia }) {
-  if (temporaryHideMedia) {
+function TrelloCard({ card }) {
+  function shouldShowCardAction() {
     return (
-      <Card
-        sx={{
-          cursor: "pointer",
-          boxShadow: "0 1px 1px rgba(0,0,0,0.2)",
-          overflow: "unset",
-        }}
-      >
-        <CardContent
-          sx={{
-            p: 1.5,
-            "&:last-child": {
-              p: 1.5,
-            },
-          }}
-        >
-          <Typography>Card</Typography>
-        </CardContent>
-      </Card>
+      !!card?.memberIds?.length ||
+      !!card?.comments?.length ||
+      !!card?.attachments?.length
     );
   }
+
   return (
     <Card
       sx={{
@@ -40,32 +26,35 @@ function TrelloCard({ temporaryHideMedia }) {
         overflow: "unset",
       }}
     >
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://cdn.pixabay.com/photo/2017/06/12/16/35/bharat-2396074_640.jpg"
-        title="Con meo"
-      />
-      <CardContent
-        sx={{
-          p: 1.5,
-          "&:last-child": {
-            p: 1.5,
-          },
-        }}
-      >
-        <Typography>Méo mèo meo mèo meo</Typography>
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
+      <CardContent sx={{ p: 1.5, "&:last-child": { p: 1.5 } }}>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: "0 4px 8px 4px" }}>
-        <Button size="small" startIcon={<GroupsIcon fontSize="small" />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<ModeCommentIcon fontSize="small" />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<AttachFileIcon fontSize="small" />}>
-          20
-        </Button>
-      </CardActions>
+      {shouldShowCardAction() && (
+        <CardActions sx={{ p: "0 4px 8px 4px" }}>
+          {!!card?.memberIds?.length && (
+            <Button size="small" startIcon={<GroupsIcon fontSize="small" />}>
+              {card?.memberIds?.length}
+            </Button>
+          )}
+          {!!card?.comments?.length && (
+            <Button
+              size="small"
+              startIcon={<ModeCommentIcon fontSize="small" />}
+            >
+              {card?.comments?.length}
+            </Button>
+          )}
+          {!!card?.attachments?.length && (
+            <Button
+              size="small"
+              startIcon={<AttachFileIcon fontSize="small" />}
+            >
+              {card?.attachments?.length}
+            </Button>
+          )}
+        </CardActions>
+      )}
     </Card>
   );
 }
