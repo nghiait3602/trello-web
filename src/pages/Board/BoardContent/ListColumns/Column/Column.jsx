@@ -18,10 +18,12 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ListCards from "./ListCards/ListCards";
+import { mapOrder } from "~/utils/sort";
 
 function Column({ column }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -125,7 +127,7 @@ function Column({ column }) {
       </Box>
 
       {/* Box list  */}
-      <ListCards cards={column?.cards} />
+      <ListCards cards={orderedCards} />
       {/* Box footer */}
       <Box
         sx={{
