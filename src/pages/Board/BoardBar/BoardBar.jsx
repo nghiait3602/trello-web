@@ -6,6 +6,7 @@ import AddToDriveIcon from "@mui/icons-material/AddToDrive";
 import BoltIcon from "@mui/icons-material/Bolt";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { capitalizeFirstLetter } from "~/utils/formats";
 
 const MENU_STYLE = {
   color: "white",
@@ -21,7 +22,7 @@ const MENU_STYLE = {
   },
 };
 
-function BoardBar() {
+function BoardBar({ board }) {
   return (
     <Box
       px={2}
@@ -42,13 +43,14 @@ function BoardBar() {
           sx={MENU_STYLE}
           icon={<DashboardIcon />}
           onClick={() => alert("test")}
-          label="Nav Trello Web App"
+          label={board?.title}
         />
         <Chip
           sx={MENU_STYLE}
           icon={<VpnLockIcon />}
           onClick={() => alert("test")}
-          label="Public/Private WorkSpace"
+          label={capitalizeFirstLetter(board?.type)}
+          clickable
         />
         <Chip
           sx={MENU_STYLE}
