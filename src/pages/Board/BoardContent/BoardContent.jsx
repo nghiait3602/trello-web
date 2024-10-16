@@ -21,7 +21,7 @@ function BoardContent({ board }) {
     activationConstraint: { distance: 10 },
   });
   //Nhấn giữ 250ms va dùng sai cảm ứng  thì mới kích hoạt event
-  const touchsSensor = useSensor(MouseSensor, {
+  const touchsSensor = useSensor(TouchSensor, {
     activationConstraint: { delay: 250, tolerance: 500 },
   });
   // const sensors = useSensors(pointerSensor);
