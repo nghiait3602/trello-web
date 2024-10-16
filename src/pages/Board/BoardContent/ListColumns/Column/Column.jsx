@@ -19,8 +19,20 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ListCards from "./ListCards/ListCards";
 import { mapOrder } from "~/utils/sort";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function Column({ column }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: column._id, data: { ...column } });
+
+  const dndKitColumnStyle = {
+    // touchAction: "none", // dành cho sensor default Pointersensor
+    // dùng Translate không bị bug
+    transform: CSS.Translate.toString(transform),
+    transition,
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
@@ -45,6 +57,10 @@ function Column({ column }) {
             5
           )})`,
       }}
+      ref={setNodeRef}
+      style={dndKitColumnStyle}
+      {...attributes}
+      {...listeners}
     >
       {/* Box header */}
       <Box
