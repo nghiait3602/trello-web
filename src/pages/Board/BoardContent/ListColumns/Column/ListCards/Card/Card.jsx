@@ -8,8 +8,27 @@ import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function TrelloCard({ card }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: card._id, data: { ...card } });
+
+  const dndKitCardStyle = {
+    // touchAction: "none", // dành cho sensor default Pointersensor
+    // dùng Translate không bị bug
+    transform: CSS.Translate.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : undefined,
+  };
+
   function shouldShowCardAction() {
     return (
       !!card?.memberIds?.length ||
@@ -25,6 +44,10 @@ function TrelloCard({ card }) {
         boxShadow: "0 1px 1px rgba(0,0,0,0.2)",
         overflow: "unset",
       }}
+      ref={setNodeRef}
+      style={dndKitCardStyle}
+      {...attributes}
+      {...listeners}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent sx={{ p: 1.5, "&:last-child": { p: 1.5 } }}>
