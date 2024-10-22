@@ -19,7 +19,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import Column from "./ListColumns/Column/Column";
 import TrelloCard from "./ListColumns/Column/ListCards/Card/Card";
-import { cloneDeep } from "lodash";
+import { cloneDeep, isEmpty } from "lodash";
+import { generatePlaceholder } from "~/utils/formats";
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: "ACTIVE_DRAG_ITEM_TYPE_COLUMN",
@@ -99,32 +100,45 @@ function BoardContent({ board }) {
       const nextOverColumn = nextColumns.find(
         (column) => column._id === overColumn._id
       );
-
+      // column cũ
       if (nextActiveColumn) {
         // xóa card khỏi column ban đầu
         nextActiveColumn.cards = nextActiveColumn.cards.filter(
           (card) => card._id !== activeDragCardId
         );
+        // Thêm Placeholcard nếu như column đó rỗng
+        if (isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholder(nextActiveColumn)];
+        }
         //cập nhật lại mảng cardOrderIds
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(
           (card) => card._id
         );
       }
+      // column mới
       if (nextOverColumn) {
         // kiểm tra xem card đang kéo có tồn tại ở overColumn chưa, nếu có thì xoa nó trước
         nextOverColumn.cards = nextOverColumn.cards.filter(
           (card) => card._id !== activeDragCardId
         );
+
+        // xóa placeholder card
+        nextOverColumn.cards = nextOverColumn.cards.filter(
+          (card) => !card.FE_PlaceholderCard
+        );
+
         // thêm card đã kéo vào over column mới
         nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, {
           ...activeDragCardData,
           columnId: nextOverColumn._id,
         });
+
         //cập nhật lại mảng cardOrderIds
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(
           (card) => card._id
         );
       }
+      console.log(nextColumns);
       return nextColumns;
     });
   };
