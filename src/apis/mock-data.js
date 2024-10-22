@@ -6,7 +6,12 @@ export const mockData = {
     type: "public", // 'private'
     ownerIds: [], // Những users là Admin của board
     memberIds: [], // Những users là member bình thường của board
-    columnOrderIds: ["column-id-01", "column-id-02", "column-id-03"], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
+    columnOrderIds: [
+      "column-id-01",
+      "column-id-02",
+      "column-id-03",
+      "column-id-04-placeholder-card",
+    ], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
     columns: [
       {
         _id: "column-id-01",
@@ -192,6 +197,43 @@ export const mockData = {
             comments: [],
             attachments: [],
           },
+        ],
+      },
+      {
+        _id: "column-id-04-placeholder-card",
+        boardId: "board-id-01",
+        title: "Empty Column 03",
+        cardOrderIds: ["card-id-14", "card-id-15", "card-id-16"],
+        cards: [
+          {
+            _id: "card-id-14",
+            boardId: "board-id-01",
+            columnId: "column-id-04-placeholder-card",
+            FE_PlaceholderCard: true,
+          },
+
+          // {
+          //   _id: "card-id-15",
+          //   boardId: "board-id-01",
+          //   columnId: "column-id-04",
+          //   title: "Title of card 15",
+          //   description: null,
+          //   cover: null,
+          //   memberIds: [],
+          //   comments: [],
+          //   attachments: [],
+          // },
+          // {
+          //   _id: "card-id-16",
+          //   boardId: "board-id-01",
+          //   columnId: "column-id-04",
+          //   title: "Title of card 16",
+          //   description: null,
+          //   cover: null,
+          //   memberIds: [],
+          //   comments: [],
+          //   attachments: [],
+          // },
         ],
       },
     ],
